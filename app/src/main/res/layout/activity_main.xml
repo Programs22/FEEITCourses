@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/white"
+>
+
+    <include
+        layout="@layout/app_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_choice"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:textSize="@dimen/main_text_size"
+        android:text="@string/main_choice"
+        android:textColor="@color/black"
+    />
+
+    <ImageButton
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/choose_professor"
+        app:layout_constraintTop_toBottomOf="@+id/main_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/choose_student"
+        android:layout_marginTop="@dimen/double_margin"
+        android:src="@drawable/professor"
+        android:background="@null"
+        android:contentDescription="@string/professor"
+    />
+
+    <ImageButton
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/choose_student"
+        app:layout_constraintTop_toBottomOf="@+id/main_choice"
+        app:layout_constraintStart_toEndOf="@+id/choose_professor"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/double_margin"
+        android:src="@drawable/student"
+        android:background="@null"
+        android:contentDescription="@string/student"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

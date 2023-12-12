@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <item
+        android:title="@string/assign_new_course"
+        android:id="@+id/new_course"
+        app:showAsAction="always"
+        android:icon="@drawable/assign_course"
+    />
+
+    <item
+        android:title="@string/view_surveys"
+        android:id="@+id/view_surveys"
+        app:showAsAction="always"
+        android:icon="@drawable/enrolled_course"
+    />
+
+    <item
+        android:title="@string/schedule_alert"
+        android:id="@+id/schedule_alert"
+        app:showAsAction="always"
+        android:icon="@drawable/schedule_alert"
+    />
+
+    <item
+        android:title="@string/log_out"
+        android:id="@+id/log_out"
+        app:showAsAction="always"
+        android:icon="@drawable/log_out"
+    />
+
+</menu>

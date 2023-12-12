@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FEEITCourses"
+        tools:targetApi="31">
+        <activity
+            android:name=".ViewSurveysActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceSurveyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActiveAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfessorScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SurveyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendCourseActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBtYg55S6fO6HiPlUGhd7Hx6hmUi0sYDSo" />
+
+        <activity
+            android:name=".StudentScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnrolledCoursesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnrollRemoveCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudentCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfessorCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
+
+</manifest>

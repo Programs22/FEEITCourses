@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SurveyActivity"
+    android:background="@color/white"
+>
+
+    <include
+        layout="@layout/app_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/survey_description"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/title_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:textSize="@dimen/main_text_size"
+        android:textColor="@color/black"
+        android:text="@string/survey_description"
+        android:textAlignment="center"
+    />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_importance"
+        app:layout_constraintTop_toBottomOf="@id/survey_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/title_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:textSize="@dimen/secondary_text_size"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="@string/subject_importance"
+    />
+
+    <RadioGroup
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_importance_rating"
+        app:layout_constraintTop_toBottomOf="@id/subject_importance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+    >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/importance_one"
+            android:text="@string/one"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/importance_two"
+            android:text="@string/two"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/importance_three"
+            android:text="@string/three"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/importance_four"
+            android:text="@string/four"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/importance_five"
+            android:text="@string/five"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/professor_readiness"
+        app:layout_constraintTop_toBottomOf="@id/subject_importance_rating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/view_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:textSize="@dimen/secondary_text_size"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="@string/professor_readiness"
+    />
+
+    <RadioGroup
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/professor_readiness_rating"
+        app:layout_constraintTop_toBottomOf="@id/professor_readiness"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+    >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/readiness_one"
+            android:text="@string/one"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/readiness_two"
+            android:text="@string/two"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/readiness_three"
+            android:text="@string/three"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/readiness_four"
+            android:text="@string/four"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/readiness_five"
+            android:text="@string/five"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_difficulty"
+        app:layout_constraintTop_toBottomOf="@id/professor_readiness_rating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/view_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:textSize="@dimen/secondary_text_size"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="@string/subject_difficulty"
+    />
+
+    <RadioGroup
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_difficulty_rating"
+        app:layout_constraintTop_toBottomOf="@id/subject_difficulty"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+    >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_one"
+            android:text="@string/one"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_two"
+            android:text="@string/two"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_three"
+            android:text="@string/three"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_four"
+            android:text="@string/four"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_five"
+            android:text="@string/five"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_materials"
+        app:layout_constraintTop_toBottomOf="@id/subject_difficulty_rating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/view_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:textSize="@dimen/secondary_text_size"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="@string/subject_materials"
+    />
+
+    <RadioGroup
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_materials_rating"
+        app:layout_constraintTop_toBottomOf="@id/subject_materials"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+    >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/materials_one"
+            android:text="@string/one"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/materials_two"
+            android:text="@string/two"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/materials_three"
+            android:text="@string/three"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/materials_four"
+            android:text="@string/four"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/materials_five"
+            android:text="@string/five"
+            android:textSize="@dimen/tertiary_text_size"
+            android:textColor="@color/black"
+        />
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit_survey"
+        app:layout_constraintTop_toBottomOf="@id/subject_materials_rating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/view_margin"
+        android:layout_marginLeft="@dimen/double_margin"
+        android:layout_marginRight="@dimen/double_margin"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_size"
+        android:text="@string/submit_survey"
+        android:backgroundTint="@color/primary_blue"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
