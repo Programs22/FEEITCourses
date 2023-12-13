@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "877299292830",
+    "firebase_url": "https://feeit-courses-default-rtdb.europe-west1.firebasedatabase.app/",
+    "project_id": "feeit-courses",
+    "storage_bucket": "feeit-courses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877299292830:android:41c1ef85daa3e8e613798f",
+        "android_client_info": {
+          "package_name": "com.example.feeitcourses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2aFZIwtKf8siw8YNvimuK_qbgZAntkoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
