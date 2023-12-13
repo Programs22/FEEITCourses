@@ -72,6 +72,7 @@
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:inputType="numberDecimal"
+            android:backgroundTint="@color/primary_blue"
         />
 
         <EditText
@@ -90,6 +91,7 @@
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:inputType="numberDecimal"
+            android:backgroundTint="@color/primary_blue"
         />
 
         <EditText
@@ -108,6 +110,7 @@
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:inputType="numberDecimal"
+            android:backgroundTint="@color/primary_blue"
         />
 
         <EditText
@@ -126,6 +129,7 @@
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:inputType="numberDecimal"
+            android:backgroundTint="@color/primary_blue"
         />
 
         <Button
