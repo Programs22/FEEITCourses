@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -193,7 +194,12 @@ public class AttendCourseActivity extends AppCompatActivity {
                     startLocationUpdates();
                 }
                 catch (ApiException e) {
-                    throw new RuntimeException(e);
+                    Toast.makeText(AttendCourseActivity.this, "Location settings aren't turned on!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AttendCourseActivity.this, "Please turn on your location settings!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplication(), StudentScheduleActivity.class);
+                    intent.putExtra("username", mStudentUsername);
+                    startActivity(intent);
                 }
             }
         });
