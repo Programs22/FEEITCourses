@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -104,5 +105,15 @@ public class EnrolledCoursesActivity extends AppCompatActivity {
         mCourseAdapter = new CourseAdapter(mCourses, R.layout.course, this);
         mCourseAdapter.setStudentUsername(mStudentUsername);
         mRecyclerView.setAdapter(mCourseAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            EnrollRemoveCourseFragment enrollRemoveCourseFragment = (EnrollRemoveCourseFragment) getSupportFragmentManager().findFragmentById(R.id.enroll_course_fragment);
+            enrollRemoveCourseFragment.setActivityType("Remove");
+        }
     }
 }

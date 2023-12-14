@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
@@ -143,6 +144,16 @@ public class ProfessorCourseActivity extends AppCompatActivity {
         }
         else {
             return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            ScheduleCourseFragment scheduleCourseFragment = (ScheduleCourseFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_course);
+            scheduleCourseFragment.setProfessorUsername(mProfessorUsername);
         }
     }
 }

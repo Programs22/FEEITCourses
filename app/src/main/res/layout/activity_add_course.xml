@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddCourseActivity"
+    android:background="@color/white"
 >
 
     <include
@@ -26,6 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/title_margin"
         android:name="com.example.feeitcourses.CourseFragment"
         tools:layout="@layout/fragment_course"
     />

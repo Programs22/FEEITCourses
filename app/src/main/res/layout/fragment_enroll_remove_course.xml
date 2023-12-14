@@ -1,55 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EnrollRemoveCourseFragment"
     android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
 >
 
-    <include
-        layout="@layout/course"
-        android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:id="@+id/course"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/title_margin"
-        android:layout_marginLeft="@dimen/view_margin"
-        android:layout_marginRight="@dimen/view_margin"
-    />
-
-    <TextView
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/schedule"
-        app:layout_constraintTop_toBottomOf="@id/course"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/half_view_margin"
-        android:layout_marginLeft="@dimen/view_margin"
-        android:layout_marginRight="@dimen/view_margin"
-        android:textSize="@dimen/main_text_size"
-        android:textColor="@color/black"
-    />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".EnrollRemoveCourseFragment"
+        android:background="@color/white"
+    >
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/enroll"
-        app:layout_constraintTop_toBottomOf="@id/schedule"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/title_margin"
-        android:layout_marginLeft="@dimen/double_margin"
-        android:layout_marginRight="@dimen/double_margin"
-        android:text="@string/enroll_course_title"
-        android:textSize="@dimen/main_text_size"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/primary_blue"
-    />
+        <include
+            layout="@layout/course"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:id="@+id/course"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/schedule"
+            app:layout_constraintTop_toBottomOf="@id/course"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/half_view_margin"
+            android:textSize="@dimen/main_text_size"
+            android:textColor="@color/black"
+        />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/enroll"
+            app:layout_constraintTop_toBottomOf="@id/schedule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/title_margin"
+            android:layout_marginLeft="@dimen/double_margin"
+            android:layout_marginRight="@dimen/double_margin"
+            android:text="@string/enroll_course_title"
+            android:textSize="@dimen/main_text_size"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_blue"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

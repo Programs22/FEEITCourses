@@ -2,12 +2,14 @@ package com.example.feeitcourses;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -64,11 +66,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 if (mContext.getClass() == ProfessorCourseActivity.class) {
-                    Intent intent = new Intent(mContext, ScheduleCourseActivity.class);
-                    intent.putExtra("courseID", course.getCourseID());
-                    intent.putExtra("courseTitle", course.getCourseTitle());
-                    intent.putExtra("username", course.getProfessorUsername());
-                    mContext.startActivity(intent);
+                    if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Intent intent = new Intent(mContext, ScheduleCourseActivity.class);
+                        intent.putExtra("courseID", course.getCourseID());
+                        intent.putExtra("courseTitle", course.getCourseTitle());
+                        intent.putExtra("username", course.getProfessorUsername());
+                        mContext.startActivity(intent);
+                    }
+                    else {
+                        ScheduleCourseFragment scheduleCourseFragment = (ScheduleCourseFragment) ((AppCompatActivity)mContext).getSupportFragmentManager().findFragmentById(R.id.schedule_course);
+                        scheduleCourseFragment.setViewDescription(course.getCourseTitle(), course.getCourseID());
+                    }
                 }
                 else if (mContext.getClass() == StudentCourseActivity.class) {
                     Intent intent = new Intent(mContext, EnrollRemoveCourseActivity.class);
@@ -82,15 +90,23 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     mContext.startActivity(intent);
                 }
                 else if (mContext.getClass() == EnrolledCoursesActivity.class) {
-                    Intent intent = new Intent(mContext, EnrollRemoveCourseActivity.class);
-                    intent.putExtra("activityType", "Remove");
-                    intent.putExtra("courseID", course.getCourseID());
-                    intent.putExtra("courseTitle", course.getCourseTitle());
-                    intent.putExtra("courseDescription", course.getCourseDescription());
-                    intent.putExtra("professor", course.getProfessor());
-                    intent.putExtra("professorUsername", course.getProfessorUsername());
-                    intent.putExtra("studentUsername", mStudentUsername);
-                    mContext.startActivity(intent);
+                    if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Intent intent = new Intent(mContext, EnrollRemoveCourseActivity.class);
+                        intent.putExtra("activityType", "Remove");
+                        intent.putExtra("courseID", course.getCourseID());
+                        intent.putExtra("courseTitle", course.getCourseTitle());
+                        intent.putExtra("courseDescription", course.getCourseDescription());
+                        intent.putExtra("professor", course.getProfessor());
+                        intent.putExtra("professorUsername", course.getProfessorUsername());
+                        intent.putExtra("studentUsername", mStudentUsername);
+                        mContext.startActivity(intent);
+                    }
+                    else {
+                        EnrollRemoveCourseFragment removeFragment = (EnrollRemoveCourseFragment) ((AppCompatActivity)mContext).getSupportFragmentManager().findFragmentById(R.id.enroll_course_fragment);
+                        removeFragment.setRealCourseID(course.getCourseID(), course.getProfessorUsername());
+                        removeFragment.setCourseToRemove(course.getCourseTitle(), course.getCourseDescription(), course.getProfessor());
+                        removeFragment.setStudentUsername(mStudentUsername);
+                    }
                 }
             }
         });
