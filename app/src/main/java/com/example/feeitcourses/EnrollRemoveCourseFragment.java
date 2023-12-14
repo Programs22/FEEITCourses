@@ -2,6 +2,7 @@ package com.example.feeitcourses;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +36,7 @@ public class EnrollRemoveCourseFragment extends Fragment implements LifecycleObs
     String mProfessorUsername;
     String mStudentUsername;
     String mActivityType;
+    String mRealCourseID;
 
     public EnrollRemoveCourseFragment() {
 
@@ -44,7 +47,7 @@ public class EnrollRemoveCourseFragment extends Fragment implements LifecycleObs
         super.onViewCreated(view, savedInstanceState);
         getActivity().getLifecycle().removeObserver(this);
 
-        mActivityType = getActivity().getIntent().getStringExtra("activityType");
+        String activityType = getActivity().getIntent().getStringExtra("activityType");
 
         mCourseID = getActivity().getIntent().getStringExtra("courseID");
         mCourseTitle = getActivity().getIntent().getStringExtra("courseTitle");
@@ -53,76 +56,9 @@ public class EnrollRemoveCourseFragment extends Fragment implements LifecycleObs
         mProfessorUsername = getActivity().getIntent().getStringExtra("professorUsername");
         mStudentUsername = getActivity().getIntent().getStringExtra("studentUsername");
 
-        mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.course_id);
-        mTextView.setText(String.format("Course ID: %s", mCourseID));
-
-        mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.course_title);
-        mTextView.setText(String.format("Course title: %s", mCourseTitle));
-
-        mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.course_description);
-        mTextView.setText(String.format("Course description: %s", mCourseDescription));
-
-        mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.professor);
-        mTextView.setText(String.format("Professor %s", mProfessor));
-
-        String realCourseID = String.format("%s_%s", mCourseID, mProfessorUsername);
-        mDescription = getActivity().findViewById(R.id.schedule);
-
-        mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mDatabase.getReference("ScheduledCourses");
-        mDatabaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getKey().equals(realCourseID)) {
-                    for (DataSnapshot localData : snapshot.getChildren()) {
-                        mDescription.setText(String.format("%s\n%s: %s:%s - %s:%s", mDescription.getText(), localData.getKey().toString(), localData.child("hoursFrom").getValue().toString(),
-                                                                                    localData.child("minutesFrom").getValue().toString(), localData.child("hoursTo").getValue().toString(),
-                                                                                    localData.child("minutesTo").getValue().toString()));
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        mEnrollButton = getActivity().findViewById(R.id.enroll);
-
-        if (mActivityType.equals("Enroll")) {
-            mEnrollButton.setText(R.string.enroll_course_title);
-        }
-        else {
-            mEnrollButton.setText(R.string.remove_course);
-        }
-
-        mEnrollButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mActivityType.equals("Enroll")) {
-                    enroll();
-                }
-                else {
-                    removeCourse();
-                }
-            }
-        });
+        setActivityType(activityType);
+        setRealCourseID(mCourseID, mProfessorUsername);
+        setCourseToRemove(mCourseTitle, mCourseDescription, mProfessor);
     }
 
     @Override
@@ -150,6 +86,11 @@ public class EnrollRemoveCourseFragment extends Fragment implements LifecycleObs
     }
 
     public void removeCourse() {
+        if (mCourseID == null || mProfessorUsername == null || mStudentUsername == null) {
+            Toast.makeText(getActivity(), "Please choose a course to remove!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mDatabaseReference = mDatabase.getReference("EnrolledCourses");
         String enrolledCourseID = String.format("%s_%s_%s", mCourseID, mProfessorUsername, mStudentUsername);
 
@@ -159,5 +100,118 @@ public class EnrollRemoveCourseFragment extends Fragment implements LifecycleObs
         Intent intent = new Intent(getActivity(), StudentCourseActivity.class);
         intent.putExtra("username", mStudentUsername);
         startActivity(intent);
+    }
+
+    public void setActivityType(String activityType) {
+        mActivityType = activityType;
+        mEnrollButton = getActivity().findViewById(R.id.enroll);
+
+        if (mActivityType != null) {
+            if (mActivityType.equals("Enroll")) {
+                mEnrollButton.setText(R.string.enroll_course_title);
+            }
+            else {
+                mEnrollButton.setText(R.string.remove_course);
+            }
+        }
+
+        if (mEnrollButton != null) {
+            mEnrollButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mActivityType.equals("Enroll")) {
+                        enroll();
+                    }
+                    else {
+                        removeCourse();
+                    }
+                }
+            });
+        }
+    }
+
+    public void setStudentUsername(String studentUsername) {
+        mStudentUsername = studentUsername;
+    }
+
+    public void setRealCourseID(String courseID, String professorUsername) {
+        if (courseID == null || professorUsername == null) {
+            return;
+        }
+
+        mRealCourseID = String.format("%s_%s", courseID, professorUsername);
+
+        mCourseID = courseID;
+        mProfessorUsername = professorUsername;
+    }
+
+    public void setCourseToRemove(String courseTitle, String courseDescription, String professor) {
+        if (courseTitle == null || courseDescription == null || professor == null) {
+            return;
+        }
+
+        if (getActivity().findViewById(R.id.course) != null) {
+            mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.course_id);
+            mTextView.setText(String.format("Course ID: %s", mCourseID));
+
+            mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.course_title);
+            mTextView.setText(String.format("Course title: %s", courseTitle));
+
+            mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.course_description);
+            mTextView.setText(String.format("Course description: %s", courseDescription));
+
+            mTextView = getActivity().findViewById(R.id.course).findViewById(R.id.professor);
+            mTextView.setText(String.format("Professor %s", professor));
+        }
+
+        mCourseTitle = courseTitle;
+        mCourseDescription = courseDescription;
+        mProfessor = professor;
+
+        setDescription();
+    }
+
+    public void setDescription() {
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mDatabase.getReference("ScheduledCourses");
+
+        mDescription = getActivity().findViewById(R.id.schedule);
+
+        if (mDescription != null) {
+            mDescription.setText("");
+        }
+
+        mDatabaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getKey().equals(mRealCourseID)) {
+                    for (DataSnapshot localData : snapshot.getChildren()) {
+                        mDescription.setText(String.format("%s\n%s: %s:%s - %s:%s", mDescription.getText(), localData.getKey().toString(), localData.child("hoursFrom").getValue().toString(),
+                                                                                                            localData.child("minutesFrom").getValue().toString(), localData.child("hoursTo").getValue().toString(),
+                                                                                                            localData.child("minutesTo").getValue().toString()));
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

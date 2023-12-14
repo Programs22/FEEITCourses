@@ -1,156 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ScheduleCourseActivity"
     android:background="@color/white"
-    xmlns:android="http://schemas.android.com/apk/res/android"
 >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <include
+        layout="@layout/app_bar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:context=".ScheduleCourseActivity"
-        android:background="@color/white"
-    >
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
 
-        <include
-            layout="@layout/app_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-        />
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/schedule_course"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/title_margin"
+        android:name="com.example.feeitcourses.ScheduleCourseFragment"
+        tools:layout="@layout/fragment_schedule_course"
+    />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/current_course"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/title_margin"
-            android:layout_marginRight="@dimen/title_margin"
-            android:text="@string/set_schedule"
-            android:textColor="@color/black"
-            android:textSize="@dimen/main_text_size"
-            android:textAlignment="center"
-        />
-
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:id="@+id/day_picker"
-            app:layout_constraintTop_toBottomOf="@id/current_course"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/double_margin"
-            android:layout_marginRight="@dimen/double_margin"
-            android:spinnerMode="dialog"
-            android:prompt="@string/choose_day"
-            android:entries="@array/days"
-        />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:id="@+id/hours_from"
-            app:layout_constraintTop_toBottomOf="@id/day_picker"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/minutes_from"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/view_margin"
-            android:layout_marginRight="@dimen/view_margin"
-            android:hint="@string/starting_hour"
-            android:autofillHints="phone"
-            android:textSize="@dimen/main_text_size"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@null"
-            android:inputType="numberDecimal"
-            android:backgroundTint="@color/primary_blue"
-        />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:id="@+id/minutes_from"
-            app:layout_constraintTop_toBottomOf="@id/day_picker"
-            app:layout_constraintStart_toEndOf="@id/hours_from"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/view_margin"
-            android:layout_marginRight="@dimen/view_margin"
-            android:hint="@string/starting_minutes"
-            android:autofillHints="phone"
-            android:textSize="@dimen/main_text_size"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@null"
-            android:inputType="numberDecimal"
-            android:backgroundTint="@color/primary_blue"
-        />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:id="@+id/hours_to"
-            app:layout_constraintTop_toBottomOf="@id/hours_from"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/minutes_to"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/view_margin"
-            android:layout_marginRight="@dimen/view_margin"
-            android:hint="@string/ending_hour"
-            android:autofillHints="phone"
-            android:textSize="@dimen/main_text_size"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@null"
-            android:inputType="numberDecimal"
-            android:backgroundTint="@color/primary_blue"
-        />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:id="@+id/minutes_to"
-            app:layout_constraintTop_toBottomOf="@id/minutes_from"
-            app:layout_constraintStart_toEndOf="@id/hours_to"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/view_margin"
-            android:layout_marginRight="@dimen/view_margin"
-            android:hint="@string/ending_minutes"
-            android:autofillHints="phone"
-            android:textSize="@dimen/main_text_size"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@null"
-            android:inputType="numberDecimal"
-            android:backgroundTint="@color/primary_blue"
-        />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/set_schedule"
-            app:layout_constraintTop_toBottomOf="@id/hours_to"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/title_margin"
-            android:layout_marginLeft="@dimen/double_margin"
-            android:layout_marginRight="@dimen/double_margin"
-            android:layout_marginBottom="@dimen/title_margin"
-            android:text="@string/schedule_button"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="@dimen/main_text_size"
-            android:backgroundTint="@color/primary_blue"
-        />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
