@@ -18,7 +18,7 @@ public class CourseScheduleAdapter extends RecyclerView.Adapter<CourseScheduleAd
     Context mContext;
     String mStudentUsername;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mCourseID;
         TextView mCourseTitle;
         TextView mProfessor;
@@ -61,26 +61,23 @@ public class CourseScheduleAdapter extends RecyclerView.Adapter<CourseScheduleAd
         viewHolder.mProfessor.setText(String.format("Professor: %s", courseSchedule.getCourseProfessor()));
         viewHolder.mCourseSchedule.setText(String.format("Schedule: %s", courseSchedule.getCourseDateTime()));
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mContext.getClass() == StudentScheduleActivity.class) {
-                    Intent intent = new Intent(mContext, AttendCourseActivity.class);
-                    intent.putExtra("username", mStudentUsername);
-                    intent.putExtra("courseID", courseSchedule.getCourseID());
-                    intent.putExtra("courseTitle", courseSchedule.getCourseTitle());
-                    intent.putExtra("professor", courseSchedule.getCourseProfessor());
-                    intent.putExtra("professorUsername", courseSchedule.getCourseProfessorUsername());
-                    intent.putExtra("courseDateTime", courseSchedule.getCourseDateTime());
-                    mContext.startActivity(intent);
-                }
-                else if (mContext.getClass() == ProfessorScheduleActivity.class) {
-                    Intent intent = new Intent(mContext, ActiveAttendanceActivity.class);
-                    intent.putExtra("professorUsername", courseSchedule.getCourseProfessorUsername());
-                    intent.putExtra("courseID", courseSchedule.getCourseID());
-                    intent.putExtra("courseDateTime", courseSchedule.getCourseDateTime());
-                    mContext.startActivity(intent);
-                }
+        viewHolder.itemView.setOnClickListener(view -> {
+            if (mContext.getClass() == StudentScheduleActivity.class) {
+                Intent intent = new Intent(mContext, AttendCourseActivity.class);
+                intent.putExtra("username", mStudentUsername);
+                intent.putExtra("courseID", courseSchedule.getCourseID());
+                intent.putExtra("courseTitle", courseSchedule.getCourseTitle());
+                intent.putExtra("professor", courseSchedule.getCourseProfessor());
+                intent.putExtra("professorUsername", courseSchedule.getCourseProfessorUsername());
+                intent.putExtra("courseDateTime", courseSchedule.getCourseDateTime());
+                mContext.startActivity(intent);
+            }
+            else if (mContext.getClass() == ProfessorScheduleActivity.class) {
+                Intent intent = new Intent(mContext, ActiveAttendanceActivity.class);
+                intent.putExtra("professorUsername", courseSchedule.getCourseProfessorUsername());
+                intent.putExtra("courseID", courseSchedule.getCourseID());
+                intent.putExtra("courseDateTime", courseSchedule.getCourseDateTime());
+                mContext.startActivity(intent);
             }
         });
     }

@@ -30,7 +30,7 @@ public class EnrolledCoursesActivity extends AppCompatActivity {
     List<Course> mCourses;
     String mStudentUsername;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -39,8 +39,10 @@ public class EnrolledCoursesActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -113,7 +115,10 @@ public class EnrolledCoursesActivity extends AppCompatActivity {
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             EnrollRemoveCourseFragment enrollRemoveCourseFragment = (EnrollRemoveCourseFragment) getSupportFragmentManager().findFragmentById(R.id.enroll_course_fragment);
-            enrollRemoveCourseFragment.setActivityType("Remove");
+
+            if (enrollRemoveCourseFragment != null) {
+                enrollRemoveCourseFragment.setActivityType("Remove");
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ActiveAttendanceActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
@@ -40,7 +41,7 @@ public class ActiveAttendanceActivity extends AppCompatActivity {
     Calendar mCalendar;
     SimpleDateFormat mDateFormat;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -49,8 +50,10 @@ public class ActiveAttendanceActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -73,7 +76,7 @@ public class ActiveAttendanceActivity extends AppCompatActivity {
         mRecordedAttendees = new ArrayList<>();
 
         mCalendar = GregorianCalendar.getInstance();
-        mDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         mDatabase = FirebaseDatabase.getInstance();
         mStudentsReference = mDatabase.getReference("Students");

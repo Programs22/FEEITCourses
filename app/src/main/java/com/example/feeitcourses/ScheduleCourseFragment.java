@@ -63,12 +63,7 @@ public class ScheduleCourseFragment extends Fragment implements LifecycleObserve
         }
 
         if (mScheduleButton != null) {
-            mScheduleButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    scheduleCourse();
-                }
-            });
+            mScheduleButton.setOnClickListener(scheduleButtonView -> scheduleCourse());
         }
     }
 

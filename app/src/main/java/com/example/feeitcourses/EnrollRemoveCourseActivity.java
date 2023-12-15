@@ -14,11 +14,13 @@ public class EnrollRemoveCourseActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         String activityType = getIntent().getStringExtra("activityType");
 
-        if (activityType.equals("Enroll")) {
-            toolbar.setTitle(R.string.enroll_course_title);
-        }
-        else {
-            toolbar.setTitle(R.string.remove_course_title);
+        if (activityType != null) {
+            if (activityType.equals("Enroll")) {
+                toolbar.setTitle(R.string.enroll_course_title);
+            }
+            else {
+                toolbar.setTitle(R.string.remove_course_title);
+            }
         }
     }
 }

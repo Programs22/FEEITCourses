@@ -25,6 +25,7 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ProfessorScheduleActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class ProfessorScheduleActivity extends AppCompatActivity {
     HashMap<String, HashMap<String, TimeScheduler>> mScheduledCourses;
     List<CourseSchedule> mSchedule;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -48,8 +49,10 @@ public class ProfessorScheduleActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -104,15 +107,17 @@ public class ProfessorScheduleActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String courseID = snapshot.getKey();
 
-                if (courseID.split("_")[1].equals(mProfessorUsername)) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        HashMap<String, TimeScheduler> localMap = new HashMap<>();
-                        String day = dataSnapshot.getKey();
-                        TimeScheduler timeScheduler = dataSnapshot.getValue(TimeScheduler.class);
+                if (courseID != null) {
+                    if (courseID.split("_")[1].equals(mProfessorUsername)) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            HashMap<String, TimeScheduler> localMap = new HashMap<>();
+                            String day = dataSnapshot.getKey();
+                            TimeScheduler timeScheduler = dataSnapshot.getValue(TimeScheduler.class);
 
-                        localMap.put(day, timeScheduler);
-                        mScheduledCourses.put(courseID, localMap);
-                        setSchedule();
+                            localMap.put(day, timeScheduler);
+                            mScheduledCourses.put(courseID, localMap);
+                            setSchedule();
+                        }
                     }
                 }
             }
@@ -162,7 +167,7 @@ public class ProfessorScheduleActivity extends AppCompatActivity {
 
     public void setSchedule() {
         mCalendar = GregorianCalendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         int counter = 0;
 
         do {
@@ -195,12 +200,7 @@ public class ProfessorScheduleActivity extends AppCompatActivity {
 
                                 if (!found) {
                                     mSchedule.add(courseSchedule);
-                                    mSchedule.sort(new Comparator<CourseSchedule>() {
-                                        @Override
-                                        public int compare(CourseSchedule scheduleOne, CourseSchedule scheduleTwo) {
-                                            return scheduleOne.getCourseDateTime().compareTo(scheduleTwo.getCourseDateTime());
-                                        }
-                                    });
+                                    mSchedule.sort(Comparator.comparing(CourseSchedule::getCourseDateTime));
 
                                     if (mCourseScheduleAdapter != null) {
                                         mCourseScheduleAdapter.setSchedule(mSchedule);
