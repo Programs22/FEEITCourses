@@ -35,7 +35,7 @@ public class ViewSurveysActivity extends AppCompatActivity {
     List<String> mSurveyDateTime;
     List<String> mSurveyCourses;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -44,8 +44,10 @@ public class ViewSurveysActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -73,7 +75,11 @@ public class ViewSurveysActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserProfessorStudent professor = snapshot.getValue(UserProfessorStudent.class);
-                mProfessor = professor.getNameSurname();
+
+                if (professor != null) {
+                    mProfessor = professor.getNameSurname();
+                }
+
                 mSurveyAdapter.setProfessor(mProfessor);
                 mRecyclerView.setAdapter(mSurveyAdapter);
                 setSurveys();
@@ -104,7 +110,7 @@ public class ViewSurveysActivity extends AppCompatActivity {
                 String surveyDateTime = surveyKey.split("_")[2];
 
                 if (professorUsername.equals(mProfessorUsername)) {
-                    final int surveyAnswers[] = new int[4];
+                    final int[] surveyAnswers = new int[4];
                     double counter = 0;
 
                     for (int i = 0; i < 4; ++i) {
@@ -114,16 +120,18 @@ public class ViewSurveysActivity extends AppCompatActivity {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         SurveyAnswer surveyAnswer = dataSnapshot.getValue(SurveyAnswer.class);
 
-                        surveyAnswers[0] += surveyAnswer.getImportance();
-                        surveyAnswers[1] += surveyAnswer.getReadiness();
-                        surveyAnswers[2] += surveyAnswer.getDifficulty();
-                        surveyAnswers[3] += surveyAnswer.getMaterials();
+                        if (surveyAnswer != null) {
+                            surveyAnswers[0] += surveyAnswer.getImportance();
+                            surveyAnswers[1] += surveyAnswer.getReadiness();
+                            surveyAnswers[2] += surveyAnswer.getDifficulty();
+                            surveyAnswers[3] += surveyAnswer.getMaterials();
 
-                        ++counter;
+                            ++counter;
+                        }
                     }
 
                     GlobalSurvey globalSurvey = new GlobalSurvey((double) (surveyAnswers[0] / counter), (double) (surveyAnswers[1] / counter),
-                            (double) (surveyAnswers[2] / counter), (double) (surveyAnswers[3] / counter));
+                                                                 (double) (surveyAnswers[2] / counter), (double) (surveyAnswers[3] / counter));
 
                     mSurveyAnswers.add(globalSurvey);
                     mSurveyDateTime.add(surveyDateTime);

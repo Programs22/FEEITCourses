@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -27,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -108,19 +106,9 @@ public class MainActivity extends AppCompatActivity {
             }, REQ_CODE);
         }
 
-        mProfessor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login(mProfessor.getContentDescription().toString());
-            }
-        });
+        mProfessor.setOnClickListener(view -> login(mProfessor.getContentDescription().toString()));
 
-        mStudent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login(mStudent.getContentDescription().toString());
-            }
-        });
+        mStudent.setOnClickListener(view -> login(mStudent.getContentDescription().toString()));
     }
 
     public void login(String loginType) {

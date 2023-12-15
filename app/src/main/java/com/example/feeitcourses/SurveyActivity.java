@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -48,136 +47,131 @@ public class SurveyActivity extends AppCompatActivity {
         mSubjectMaterials = findViewById(R.id.subject_materials_rating);
         mSubmitSurvey = findViewById(R.id.submit_survey);
 
-        mSubmitSurvey.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitSurvey();
-            }
-        });
+        mSubmitSurvey.setOnClickListener(view -> submitSurvey());
 
         mRadioButton = findViewById(R.id.importance_one);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.importance_two);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.importance_three);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.importance_four);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.importance_five);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.readiness_one);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.readiness_two);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.readiness_three);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.readiness_four);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.readiness_five);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.difficulty_one);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.difficulty_two);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.difficulty_three);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.difficulty_four);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.difficulty_five);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.materials_one);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.materials_two);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.materials_two);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.materials_three);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.materials_four);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         mRadioButton = findViewById(R.id.materials_five);
 
-        if (mRadioButton != null) {
+        if (mRadioButton != null && mRadioButton.getButtonDrawable() != null) {
             mRadioButton.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
     }

@@ -2,7 +2,6 @@ package com.example.feeitcourses;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -116,15 +115,12 @@ public class EnrollRemoveCourseFragment extends Fragment implements LifecycleObs
         }
 
         if (mEnrollButton != null) {
-            mEnrollButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mActivityType.equals("Enroll")) {
-                        enroll();
-                    }
-                    else {
-                        removeCourse();
-                    }
+            mEnrollButton.setOnClickListener(view -> {
+                if (mActivityType.equals("Enroll")) {
+                    enroll();
+                }
+                else {
+                    removeCourse();
                 }
             });
         }

@@ -16,7 +16,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     List<AttendingStudents> mAttendees;
     Context mContext;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mStudentName;
         TextView mAcademicYear;
 
@@ -50,7 +50,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         AttendingStudents student = mAttendees.get(index);
 
         viewHolder.mStudentName.setText(String.format("Student: %s", student.getStudentName()));
-        viewHolder.mAcademicYear.setText(String.format("Academic year: %s", String.valueOf(student.getAcademicYear())));
+        viewHolder.mAcademicYear.setText(String.format("Academic year: %s", student.getAcademicYear()));
     }
 
     @Override

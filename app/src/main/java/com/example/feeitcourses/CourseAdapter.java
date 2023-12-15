@@ -20,7 +20,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     Context mContext;
     String mStudentUsername;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mCourseID;
         TextView mCourseTitle;
         TextView mProfessor;
@@ -75,7 +75,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     }
                     else {
                         ScheduleCourseFragment scheduleCourseFragment = (ScheduleCourseFragment) ((AppCompatActivity)mContext).getSupportFragmentManager().findFragmentById(R.id.schedule_course);
-                        scheduleCourseFragment.setViewDescription(course.getCourseTitle(), course.getCourseID());
+
+                        if (scheduleCourseFragment != null) {
+                            scheduleCourseFragment.setViewDescription(course.getCourseTitle(), course.getCourseID());
+                        }
                     }
                 }
                 else if (mContext.getClass() == StudentCourseActivity.class) {
@@ -103,9 +106,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     }
                     else {
                         EnrollRemoveCourseFragment removeFragment = (EnrollRemoveCourseFragment) ((AppCompatActivity)mContext).getSupportFragmentManager().findFragmentById(R.id.enroll_course_fragment);
-                        removeFragment.setRealCourseID(course.getCourseID(), course.getProfessorUsername());
-                        removeFragment.setCourseToRemove(course.getCourseTitle(), course.getCourseDescription(), course.getProfessor());
-                        removeFragment.setStudentUsername(mStudentUsername);
+
+                        if (removeFragment != null) {
+                            removeFragment.setRealCourseID(course.getCourseID(), course.getProfessorUsername());
+                            removeFragment.setCourseToRemove(course.getCourseTitle(), course.getCourseDescription(), course.getProfessor());
+                            removeFragment.setStudentUsername(mStudentUsername);
+                        }
                     }
                 }
             }

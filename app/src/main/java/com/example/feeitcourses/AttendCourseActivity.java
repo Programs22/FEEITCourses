@@ -26,7 +26,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class AttendCourseActivity extends AppCompatActivity {
     FusedLocationProviderClient mFusedLocationProviderClient;
@@ -88,19 +88,9 @@ public class AttendCourseActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.course).findViewById(R.id.schedule);
         mTextView.setText(String.format("Schedule: %s", mCourseDateTime));
 
-        mAttendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attendCourse();
-            }
-        });
+        mAttendButton.setOnClickListener(view -> attendCourse());
 
-        mSurveyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startSurvey();
-            }
-        });
+        mSurveyButton.setOnClickListener(view -> startSurvey());
 
         checkAttendanceAvailability();
         checkSurveyAvailability();
@@ -117,7 +107,7 @@ public class AttendCourseActivity extends AppCompatActivity {
 
     private void checkAttendanceAvailability() {
         Calendar calendar = GregorianCalendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String today = dateFormat.format(calendar.getTime());
 
         String courseDateTime = mCourseDateTime.replaceAll("\\s", "");
@@ -144,7 +134,7 @@ public class AttendCourseActivity extends AppCompatActivity {
 
     private void checkSurveyAvailability() {
         Calendar calendar = GregorianCalendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String today = dateFormat.format(calendar.getTime());
 
         String courseDateTime = mCourseDateTime.replaceAll("\\s", "");
@@ -186,21 +176,18 @@ public class AttendCourseActivity extends AppCompatActivity {
         SettingsClient settingsClient = LocationServices.getSettingsClient(this);
         Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(builder.build());
 
-        task.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-                try {
-                    LocationSettingsResponse response = task.getResult(ApiException.class);
-                    startLocationUpdates();
-                }
-                catch (ApiException e) {
-                    Toast.makeText(AttendCourseActivity.this, "Location settings aren't turned on!", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(AttendCourseActivity.this, "Please turn on your location settings!", Toast.LENGTH_SHORT).show();
+        task.addOnCompleteListener(result -> {
+            try {
+                LocationSettingsResponse response = result.getResult(ApiException.class);
+                startLocationUpdates();
+            }
+            catch (ApiException e) {
+                Toast.makeText(AttendCourseActivity.this, "Location settings aren't turned on!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AttendCourseActivity.this, "Please turn on your location settings!", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(getApplication(), StudentScheduleActivity.class);
-                    intent.putExtra("username", mStudentUsername);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getApplication(), StudentScheduleActivity.class);
+                intent.putExtra("username", mStudentUsername);
+                startActivity(intent);
             }
         });
     }

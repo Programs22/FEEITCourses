@@ -14,10 +14,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class AlarmReceiver extends BroadcastReceiver {
-    private static final int NOTIFICATION_ID = 999;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
+
+    public static class NotificationID {
+        private final static AtomicInteger notificationID = new AtomicInteger(0);
+
+        public static int getNotificationID() {
+            return notificationID.incrementAndGet();
+        }
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,11 +35,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference("Courses");
 
-        Task<DataSnapshot> dataSnapshotTask = mDatabaseReference.child(courseID).get();
-        while (!dataSnapshotTask.isComplete());
-        Course course = dataSnapshotTask.getResult().getValue(Course.class);
+        if (courseID != null) {
+            Task<DataSnapshot> dataSnapshotTask = mDatabaseReference.child(courseID).get();
+            while (!dataSnapshotTask.isComplete());
+            Course course = dataSnapshotTask.getResult().getValue(Course.class);
 
-        showNotification(context, course.getCourseTitle());
+            if (course != null) {
+                showNotification(context, course.getCourseTitle());
+            }
+        }
+
     }
 
     private void showNotification(Context context, String course) {
@@ -43,7 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-            notificationManagerCompat.notify(NOTIFICATION_ID, notificationBuilder.build());
+            notificationManagerCompat.notify(NotificationID.getNotificationID(), notificationBuilder.build());
         }
     }
 }

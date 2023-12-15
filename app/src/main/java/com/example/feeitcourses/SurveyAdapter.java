@@ -29,7 +29,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mImportance;
         TextView mReadiness;
         TextView mDifficulty;
@@ -108,22 +108,19 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
         String endMinutes = time.substring(6);
         String surveyTime = String.format("%s:%s - %s:%s", startHour, startMinutes, endHour, endMinutes);
 
-        viewHolder.mImportance.setText(String.format("Subject importance global rating: %s", Double.toString(survey.getImportance())));
-        viewHolder.mReadiness.setText(String.format("Professor readiness global rating: %s", Double.toString(survey.getReadiness())));
-        viewHolder.mDifficulty.setText(String.format("Subject difficulty global rating: %s", Double.toString(survey.getDifficulty())));
-        viewHolder.mMaterials.setText(String.format("Subject materials available global rating: %s", Double.toString(survey.getMaterials())));
+        viewHolder.mImportance.setText(String.format("Subject importance global rating: %s", survey.getImportance()));
+        viewHolder.mReadiness.setText(String.format("Professor readiness global rating: %s", survey.getReadiness()));
+        viewHolder.mDifficulty.setText(String.format("Subject difficulty global rating: %s", survey.getDifficulty()));
+        viewHolder.mMaterials.setText(String.format("Subject materials available global rating: %s", survey.getMaterials()));
         viewHolder.mDateTime.setText(String.format("Survey course schedule: %s: %s", surveyDate, surveyTime));
         viewHolder.mProfessor.setText(String.format("Assigned professor: %s", mProfessor));
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, AttendanceSurveyActivity.class);
-                intent.putExtra("professorUsername", mProfessorUsername);
-                intent.putExtra("courseID", course);
-                intent.putExtra("courseDateTime", dateTime);
-                mContext.startActivity(intent);
-            }
+        viewHolder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, AttendanceSurveyActivity.class);
+            intent.putExtra("professorUsername", mProfessorUsername);
+            intent.putExtra("courseID", course);
+            intent.putExtra("courseDateTime", dateTime);
+            mContext.startActivity(intent);
         });
     }
 

@@ -34,7 +34,7 @@ public class StudentCourseActivity extends AppCompatActivity {
     List<Course> mCourses;
     String mStudentUsername;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -43,8 +43,10 @@ public class StudentCourseActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -76,12 +78,14 @@ public class StudentCourseActivity extends AppCompatActivity {
                         if (snapshot.getKey().split("_")[2].equals(mStudentUsername)) {
                             Course enrolledCourse = snapshot.getValue(Course.class);
 
-                            if (course.getCourseID().equals(enrolledCourse.getCourseID()) && course.getProfessorUsername().equals(enrolledCourse.getProfessorUsername())) {
-                                mCourses.remove(course);
+                            if (course != null && enrolledCourse != null) {
+                                if (course.getCourseID().equals(enrolledCourse.getCourseID()) && course.getProfessorUsername().equals(enrolledCourse.getProfessorUsername())) {
+                                    mCourses.remove(course);
 
-                                if (mCourseAdapter != null) {
-                                    mCourseAdapter.setCourses(mCourses);
-                                    mRecyclerView.setAdapter(mCourseAdapter);
+                                    if (mCourseAdapter != null) {
+                                        mCourseAdapter.setCourses(mCourses);
+                                        mRecyclerView.setAdapter(mCourseAdapter);
+                                    }
                                 }
                             }
                         }

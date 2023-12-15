@@ -25,6 +25,7 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class StudentScheduleActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class StudentScheduleActivity extends AppCompatActivity {
     HashMap<String, HashMap<String, TimeScheduler>> mScheduledCourses;
     List<Course> mEnrolledCourses;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -48,8 +49,10 @@ public class StudentScheduleActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -164,7 +167,7 @@ public class StudentScheduleActivity extends AppCompatActivity {
 
     public void setSchedule() {
         mCalendar = GregorianCalendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         int counter = 0;
 
         do {
@@ -197,12 +200,7 @@ public class StudentScheduleActivity extends AppCompatActivity {
 
                                 if (!found) {
                                     mSchedule.add(courseSchedule);
-                                    mSchedule.sort(new Comparator<CourseSchedule>() {
-                                        @Override
-                                        public int compare(CourseSchedule scheduleOne, CourseSchedule scheduleTwo) {
-                                            return scheduleOne.getCourseDateTime().compareTo(scheduleTwo.getCourseDateTime());
-                                        }
-                                    });
+                                    mSchedule.sort(Comparator.comparing(CourseSchedule::getCourseDateTime));
 
                                     if (mCourseScheduleAdapter != null) {
                                         mCourseScheduleAdapter.setSchedule(mSchedule);

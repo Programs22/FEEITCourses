@@ -34,7 +34,7 @@ public class ProfessorCourseActivity extends AppCompatActivity {
     List<Course> mCourses;
     String mProfessorUsername;
 
-    public class VerticalSpacer extends RecyclerView.ItemDecoration {
+    public static class VerticalSpacer extends RecyclerView.ItemDecoration {
         int mSpacerHeight;
 
         public VerticalSpacer(int spacerHeight) {
@@ -43,8 +43,10 @@ public class ProfessorCourseActivity extends AppCompatActivity {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
-                outRect.bottom = mSpacerHeight;
+            if (parent.getAdapter() != null) {
+                if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+                    outRect.bottom = mSpacerHeight;
+                }
             }
         }
     }
@@ -68,12 +70,14 @@ public class ProfessorCourseActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Course course = snapshot.getValue(Course.class);
 
-                if (course.professorUsername.equals(mProfessorUsername)) {
-                    mCourses.add(course);
+                if (course != null) {
+                    if (course.professorUsername.equals(mProfessorUsername)) {
+                        mCourses.add(course);
 
-                    if (mCourseAdapter != null) {
-                        mCourseAdapter.setCourses(mCourses);
-                        mRecyclerView.setAdapter(mCourseAdapter);
+                        if (mCourseAdapter != null) {
+                            mCourseAdapter.setCourses(mCourses);
+                            mRecyclerView.setAdapter(mCourseAdapter);
+                        }
                     }
                 }
             }
@@ -153,7 +157,10 @@ public class ProfessorCourseActivity extends AppCompatActivity {
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             ScheduleCourseFragment scheduleCourseFragment = (ScheduleCourseFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_course);
-            scheduleCourseFragment.setProfessorUsername(mProfessorUsername);
+
+            if (scheduleCourseFragment != null) {
+                scheduleCourseFragment.setProfessorUsername(mProfessorUsername);
+            }
         }
     }
 }

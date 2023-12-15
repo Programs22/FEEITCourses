@@ -17,9 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -66,19 +63,9 @@ public class LoginFragment extends Fragment implements LifecycleObserver {
             mPassword.setText(mEnteredPassword);
         }
 
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login();
-            }
-        });
+        mLoginButton.setOnClickListener(loginButtonView -> login());
 
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                register();
-            }
-        });
+        mRegisterButton.setOnClickListener(registerButtonView -> register());
     }
 
     @Override
@@ -114,41 +101,38 @@ public class LoginFragment extends Fragment implements LifecycleObserver {
             return;
         }
 
-        mDatabaseReference.child(mEnteredUsername).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    HashMap result = (HashMap) task.getResult().getValue();
+        mDatabaseReference.child(mEnteredUsername).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                HashMap result = (HashMap) task.getResult().getValue();
 
-                    if (result != null) {
-                        String password = result.get("password").toString();
+                if (result != null) {
+                    String password = result.get("password").toString();
 
-                        if (password.equals(mEnteredPassword)) {
-                            Toast.makeText(getContext(), "Successful login!", Toast.LENGTH_SHORT).show();
-                            Intent intent;
+                    if (password.equals(mEnteredPassword)) {
+                        Toast.makeText(getContext(), "Successful login!", Toast.LENGTH_SHORT).show();
+                        Intent intent;
 
-                            if (mLoginType.equals("Professor")) {
-                                intent = new Intent(getActivity(), ProfessorCourseActivity.class);
-                            }
-                            else {
-                                intent = new Intent(getActivity(), StudentCourseActivity.class);
-                            }
-
-                            intent.putExtra("username", mEnteredUsername);
-                            startActivity(intent);
+                        if (mLoginType.equals("Professor")) {
+                            intent = new Intent(getActivity(), ProfessorCourseActivity.class);
                         }
                         else {
-                            Toast.makeText(getContext(), "Wrong password! Please try again!", Toast.LENGTH_SHORT).show();
+                            intent = new Intent(getActivity(), StudentCourseActivity.class);
                         }
+
+                        intent.putExtra("username", mEnteredUsername);
+                        startActivity(intent);
                     }
                     else {
-                        Toast.makeText(getContext(), "This user hasn't been registered!", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), "Please check your credentials or register now!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Wrong password! Please try again!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "Error when connecting to the database!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "This user hasn't been registered!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please check your credentials or register now!", Toast.LENGTH_SHORT).show();
                 }
+            }
+            else {
+                Toast.makeText(getContext(), "Error when connecting to the database!", Toast.LENGTH_SHORT).show();
             }
         });
     }

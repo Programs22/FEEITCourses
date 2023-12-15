@@ -59,25 +59,25 @@ public class RegisterFragment extends Fragment implements LifecycleObserver {
 
         RadioButton yearOne = getActivity().findViewById(R.id.first_year);
 
-        if (yearOne != null) {
+        if (yearOne != null && yearOne.getButtonDrawable() != null) {
             yearOne.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         RadioButton yearTwo = getActivity().findViewById(R.id.second_year);
 
-        if (yearTwo != null) {
+        if (yearTwo != null && yearTwo.getButtonDrawable() != null) {
             yearTwo.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         RadioButton yearThree = getActivity().findViewById(R.id.third_year);
 
-        if (yearThree != null) {
+        if (yearThree != null && yearThree.getButtonDrawable() != null) {
             yearThree.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 
         RadioButton yearFour = getActivity().findViewById(R.id.fourth_year);
 
-        if (yearFour != null) {
+        if (yearFour != null && yearFour.getButtonDrawable() != null) {
             yearFour.getButtonDrawable().setColorFilter(getResources().getColor(R.color.primary_blue, null), PorterDuff.Mode.SRC_IN);
         }
 

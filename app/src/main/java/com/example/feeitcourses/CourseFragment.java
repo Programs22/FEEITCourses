@@ -16,9 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,12 +47,7 @@ public class CourseFragment extends Fragment implements LifecycleObserver {
 
         mProfessorUsername = getActivity().getIntent().getStringExtra("username");
 
-        mAssignNewCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                assignCourse();
-            }
-        });
+        mAssignNewCourse.setOnClickListener(newView -> assignCourse());
     }
 
     @Override
@@ -93,41 +85,35 @@ public class CourseFragment extends Fragment implements LifecycleObserver {
 
         String realCourseID = newCourseID.concat("_" + mProfessorUsername);
 
-        mCoursesReference.child(realCourseID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    HashMap result = (HashMap) task.getResult().getValue();
+        mCoursesReference.child(realCourseID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                HashMap result = (HashMap) task.getResult().getValue();
 
-                    if (result != null) {
-                        Toast.makeText(getContext(), "This course already exists!", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), "Please enter a new course ID!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        mProfessorsReference.child(mProfessorUsername).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    HashMap result = (HashMap) task.getResult().getValue();
-
-                                    if (result != null) {
-                                        String professor = result.get("nameSurname").toString();
-
-                                        Course course = new Course(newCourseID, newCourseTitle, newCourseDescription, professor, mProfessorUsername);
-                                        mCoursesReference.child(realCourseID).setValue(course);
-                                        courseAssigned();
-                                    }
-                                }
-                                else {
-                                    Toast.makeText(getContext(), "Error when connecting to the database for professors!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
+                if (result != null) {
+                    Toast.makeText(getContext(), "This course already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter a new course ID!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(getContext(), "Error when connecting to the database for courses!", Toast.LENGTH_SHORT).show();
+                    mProfessorsReference.child(mProfessorUsername).get().addOnCompleteListener(dataSnapshotTask -> {
+                        if (dataSnapshotTask.isSuccessful()) {
+                            HashMap result1 = (HashMap) dataSnapshotTask.getResult().getValue();
+
+                            if (result1 != null) {
+                                String professor = result1.get("nameSurname").toString();
+
+                                Course course = new Course(newCourseID, newCourseTitle, newCourseDescription, professor, mProfessorUsername);
+                                mCoursesReference.child(realCourseID).setValue(course);
+                                courseAssigned();
+                            }
+                        }
+                        else {
+                            Toast.makeText(getContext(), "Error when connecting to the database for professors!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
+            }
+            else {
+                Toast.makeText(getContext(), "Error when connecting to the database for courses!", Toast.LENGTH_SHORT).show();
             }
         });
     }
